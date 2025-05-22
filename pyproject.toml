@@ -1,0 +1,37 @@
+[tool.poetry]
+name = "deepfake-impl"
+version = "0.1.0"
+description = "Deepfake detection API using PyTorch and FastAPI"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{include = "api"}]
+
+[tool.poetry.dependencies]
+python = "^3.9,<3.13"
+fastapi = "^0.115.12"
+uvicorn = "^0.34.2"
+python-multipart = "^0.0.20"
+torch = "^2.6.0"
+torchvision = "^0.21.0"
+pillow = "^11.1.0"
+clearml = "^1.18.0"
+httpx = "^0.28.1"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+black = "^24.2.0"
+isort = "^5.13.2"
+flake8 = "^7.0.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3 

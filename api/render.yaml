@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: deepfake-detector-api
+    env: python
+    rootDir: ..
+    buildCommand: |
+      pip install poetry
+      poetry config virtualenvs.create false
+      poetry install --no-dev
+    startCommand: poetry run uvicorn api.deepfake_api:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.9.0
+      - key: PORT
+        value: 8000
+    healthCheckPath: /docs
+    autoDeploy: true
+    disk:
+      name: model-storage
+      mountPath: /opt/render/model-storage
+      sizeGB: 1 
