@@ -11,8 +11,6 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: 3.9.0
-      - key: PORT
-        value: 10000
     healthCheckPath: /docs
     autoDeploy: true
     disk:
