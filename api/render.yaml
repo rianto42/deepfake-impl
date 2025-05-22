@@ -3,10 +3,9 @@ services:
     name: deepfake-detector-api
     env: python
     rootDir: ..
-    buildCommand: |
-      pip install poetry
-      poetry config virtualenvs.create false
-      poetry install --no-dev
+    buildCommand: 
+      poetry install
+      pip install -r requirements.txt
     startCommand: uvicorn api.deepfake_api:app --host 0.0.0.0 --port $PORT
     envVars:
       - key: PYTHON_VERSION
