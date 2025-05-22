@@ -2,7 +2,7 @@ services:
   - type: web
     name: deepfake-detector-api
     env: python
-    rootDir: /api
+    rootDir: ..
     buildCommand: |
       pip install poetry
       poetry config virtualenvs.create false
