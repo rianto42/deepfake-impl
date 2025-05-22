@@ -3,6 +3,7 @@ services:
     name: deepfake-detector-api
     env: python
     rootDir: ..
+    plan: free
     buildCommand: 
       poetry install
       pip install -r requirements.txt
