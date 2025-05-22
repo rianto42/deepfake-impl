@@ -12,7 +12,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.9.0
       - key: PORT
-        value: 8000
+        value: 10000
     healthCheckPath: /docs
     autoDeploy: true
     disk:
