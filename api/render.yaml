@@ -12,7 +12,7 @@ services:
       - key: PYTHON_VERSION
         value: 3.9.0
     healthCheckPath: /docs
-    autoDeploy: true
+    autoDeploy: false
     disk:
       name: model-storage
       mountPath: /opt/render/model-storage
