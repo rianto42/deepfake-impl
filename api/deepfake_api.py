@@ -88,6 +88,7 @@ async def predict_image(
             probabilities = F.softmax(output, dim=1)[0]  # Apply softmax to get probabilities
             real_prob = float(probabilities[0])
             fake_prob = float(probabilities[1])
+            print(f"Real probability: {real_prob}, Fake probability: {fake_prob}")
             
             # Use threshold to determine prediction
             result = "real" if real_prob >= threshold else "fake"
