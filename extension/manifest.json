@@ -1,0 +1,23 @@
+{
+  "manifest_version": 3,
+  "name": "Deepfake Image Detector",
+  "version": "1.0",
+  "description": "Detects potential deepfake images on web pages",
+  "permissions": [
+    "activeTab",
+    "scripting"
+  ],
+  "host_permissions": [
+    "http://localhost:8000/*"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+} 
