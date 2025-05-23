@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile, HTTPException
+from fastapi import FastAPI, File, UploadFile, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 from clearml import Model
 import torch
@@ -65,12 +65,18 @@ except Exception as e:
     model = None
 
 @app.post("/predict")
-async def predict_image(file: UploadFile = File(...)):
+async def predict_image(
+    file: UploadFile = File(...),
+    threshold: float = Query(0.75, description="Probability threshold for real prediction (0-1)")
+):
     if model is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
         
     if not file.content_type.startswith('image/'):
         raise HTTPException(status_code=400, detail="File must be an image")
+    
+    if not 0 <= threshold <= 1:
+        raise HTTPException(status_code=400, detail="Threshold must be between 0 and 1")
         
     try:
         image_bytes = await file.read()
@@ -80,15 +86,19 @@ async def predict_image(file: UploadFile = File(...)):
         with torch.no_grad():
             output = model(input_tensor)
             probabilities = F.softmax(output, dim=1)[0]  # Apply softmax to get probabilities
-            pred = torch.argmax(output, dim=1).item()
+            real_prob = float(probabilities[0])
+            fake_prob = float(probabilities[1])
+            
+            # Use threshold to determine prediction
+            result = "real" if real_prob >= threshold else "fake"
 
-        result = "fake" if pred == 1 else "real"
         return {
             "prediction": result,
             "probabilities": {
-                "real": float(probabilities[0]),
-                "fake": float(probabilities[1])
-            }
+                "real": real_prob,
+                "fake": fake_prob
+            },
+            "threshold": threshold
         }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
