@@ -1,16 +1,22 @@
 {
   "manifest_version": 3,
-  "name": "Deepfake Image Detector",
-  "version": "1.2",
-  "description": "Detect if an image is real or fake using AI",
+  "name": "Deepfake Image Predictor",
+  "version": "1.5",
+  "description": "Detect if an face image is real or fake using AI",
   "permissions": [
     "clipboardRead",
-    "activeTab"
+    "activeTab",
+    "scripting",
+    "webRequest"
   ],
   "host_permissions": [
-    "http://localhost:10000/*"
+    "http://localhost:10000/*",
+    "<all_urls>"
   ],
   "action": {
     "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
   }
 } 

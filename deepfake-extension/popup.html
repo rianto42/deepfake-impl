@@ -61,6 +61,24 @@
       content: "...";
       animation: dots 1.5s steps(5, end) infinite;
     }
+    .scan-all-btn {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background-color 0.3s ease;
+    }
+    .scan-all-btn:hover {
+      background-color: #0056b3;
+    }
+    .scan-all-btn:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
     @keyframes dots {
       0%, 20% { content: "."; }
       40% { content: ".."; }
@@ -75,6 +93,7 @@
     <div class="drop-zone" id="dropZone">
       <p>Click or paste an image here</p>
     </div>
+    <button id="scanAllBtn" class="scan-all-btn">Scan All Images on Page</button>
     <img id="previewImage" class="preview-image" alt="Preview">
     <div id="loading" class="loading">Analyzing image</div>
     <div id="result" class="result"></div>
